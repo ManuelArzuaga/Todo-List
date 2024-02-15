@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  
+  <title>Todo-List</title>
+</head>
+<body>
+  <div>
+    <div>
+      <h1>Todo List</h1>
+    </div>
+    <div>My Projects</div>
+  </div>
+  <div id="container-list">
+    <form onsubmit="IngresarTarea(event)">
+    <input placeholder="ingrese tarea" id = "inputtarea">
+    <!-- <input placeholder="ingrese description" id = "inputdescription"> -->
+    </form>
+    <div id = "tarjeta">
+    </div>
+    <!-- <button id="boton">Eliminar Tareas</button>
+    <button id="post">Post</button> -->
+  </div>
+
+  <script>
+    function IngresarTarea(event){
+      event.preventDefault()
+      fetch("/",{
+        method:"POST",
+        body:JSON.stringify({
+        title:document.getElementById("inputtarea").value
+        }),
+        headers:{
+          "Content-type":"application/json"
+        }
+
+      })
+      .then(res=>res.json)
+      .then(data=>console.log(data))
+      .catch(err=>console.log(err))
+  
+}
+  </script>
+</body>
+</html>

@@ -16,6 +16,8 @@ function IngresarTarea(event){
   tarjeta.appendChild(tarea);
 }
 
+
+
 boton.onclick = function(){
   tarjeta.textContent = ""
 }
