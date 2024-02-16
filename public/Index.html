@@ -15,34 +15,78 @@
     <div>My Projects</div>
   </div>
   <div id="container-list">
-    <form onsubmit="IngresarTarea(event)">
+    <form >
     <input placeholder="ingrese tarea" id = "inputtarea">
-    <!-- <input placeholder="ingrese description" id = "inputdescription"> -->
+    <input placeholder="ingrese description" id = "inputdescription">
+    <input placeholder="ingrese tarea a eliminar" id = "inputeliminar">
+    <input placeholder="ingrese tarea a actualizar" id = "inputActualizar">
+    <input placeholder="ingrese descripcion a actualizar" id = "inputdescriptionActualizar">
     </form>
     <div id = "tarjeta">
     </div>
-    <!-- <button id="boton">Eliminar Tareas</button>
-    <button id="post">Post</button> -->
+    <!-- <button id="boton">Eliminar Tareas</button> -->
+    <button id="post" onclick="IngresarTarea(event)">Post</button>
+    <button id="post" onclick="DeleteTarea(event)">Delete</button>
+    <button id="post" onclick="ActualizarTarea(event)">Actualizar</button>
+    <button id="post" onclick="MostarTareas()">Mostrar</button>
   </div>
 
   <script>
     function IngresarTarea(event){
       event.preventDefault()
       fetch("/",{
-        method:"POST",
+        method:"POST", //va al app.post
         body:JSON.stringify({
-        title:document.getElementById("inputtarea").value
+        title:document.getElementById("inputtarea").value,
+        description:document.getElementById("inputdescription").value
         }),
         headers:{
           "Content-type":"application/json"
         }
 
       })
-      .then(res=>res.json)
+      .then(res=>res.json())
       .then(data=>console.log(data))
       .catch(err=>console.log(err))
-  
-}
+  }
+  function DeleteTarea(event){
+    event.preventDefault()
+    fetch("/",{
+      method:"DELETE", //va al app.delete
+      body:JSON.stringify({
+        title:document.getElementById("inputeliminar").value
+      })
+    })
+    .then(res=>res.json())
+    .then(data=>console.log(data))
+    .catch(err=>console.log(err))
+    
+  }
+
+  function ActualizarTarea(event){
+    
+    
+    fetch("/",{
+      method:"PATCH", //va al app.patch
+      body:JSON.stringify({
+        title:document.getElementById("inputActualizar").value,
+        description:document.getElementById("inputdescriptionActualizar").value
+      }),
+      headers:{ //tiene que estar el headers
+          "Content-type":"application/json"
+        }
+    })
+    .then(res=>res.json())
+    .then(data=>console.log(data))
+    .then(err=>console.log(err))
+  }
+
+  function MostarTareas(){
+    fetch("/")
+    .then(res=>res.json())
+    .then(data=>console.log(data))
+    .then(err=>console.log(err))
+  }
   </script>
 </body>
 </html>
