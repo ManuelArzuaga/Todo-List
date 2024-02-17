@@ -1,0 +1,24 @@
+
+#tarjeta{
+  font-size: 30px;
+
+}
+
+#container-list{
+  position: absolute;
+  border:1px solid black;
+  padding-left:20%;
+  width:50%
+}
+
+#buttons{
+  width:20%;
+  margin-top: 20%;
+  margin-left:30%;
+  border:1px solid black;
+  padding-left:5%
+}
+
+.post{
+  border:1px solid black;
+}

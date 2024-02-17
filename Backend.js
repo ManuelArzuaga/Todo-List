@@ -75,12 +75,12 @@ app.patch("/",(req,res)=>{
 
 //mostrar elementos
 
-app.get("/",(req,res)=>{
+app.get("/datos",(req,res)=>{
   res.status=200
-  res.send("received")
+  // res.send({status:"received"})
   model.find() //lee un elemento
-.then((users) =>{
-  console.log(users)
+.then((users) =>{//devuelve un array de objetos
+  res.send(users)
 })
 .catch((err) =>{
   console.log(err)

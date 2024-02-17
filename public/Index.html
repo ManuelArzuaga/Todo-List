@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href = "../Style.css" rel = "stylesheet">
   
   
   <title>Todo-List</title>
@@ -16,21 +17,28 @@
   </div>
   <div id="container-list">
     <form >
-    <input placeholder="ingrese tarea" id = "inputtarea">
-    <input placeholder="ingrese description" id = "inputdescription">
-    <input placeholder="ingrese tarea a eliminar" id = "inputeliminar">
-    <input placeholder="ingrese tarea a actualizar" id = "inputActualizar">
-    <input placeholder="ingrese descripcion a actualizar" id = "inputdescriptionActualizar">
+      <div class="post">
+        <input placeholder="ingrese tarea" id = "inputtarea">
+        <input placeholder="ingrese description" id = "inputdescription">
+        <button id="post" onclick="IngresarTarea(event)">Post</button>
+      </div>
+      <div class="eliminar">
+        <input placeholder="ingrese tarea a eliminar" id = "inputeliminar">
+        <button id="post" onclick="DeleteTarea(event)">Delete</button>
+      </div>
+      <div class ="actualizar">
+        <input placeholder="ingrese tarea a actualizar" id = "inputActualizar">
+        <input placeholder="ingrese descripcion a actualizar" id = "inputdescriptionActualizar">
+        <button id="post" onclick="ActualizarTarea(event)">Actualizar</button>
+      </div> 
+      <div class="mostrar">
+        <div id = "tarjeta"></div>
+        <button id="post" onclick="MostarTareas(event)">Mostrar</button>
+      </div>
     </form>
-    <div id = "tarjeta">
-    </div>
-    <!-- <button id="boton">Eliminar Tareas</button> -->
-    <button id="post" onclick="IngresarTarea(event)">Post</button>
-    <button id="post" onclick="DeleteTarea(event)">Delete</button>
-    <button id="post" onclick="ActualizarTarea(event)">Actualizar</button>
-    <button id="post" onclick="MostarTareas()">Mostrar</button>
   </div>
-
+ 
+  <!-- <button id="boton">Eliminar Tareas</button> -->
   <script>
     function IngresarTarea(event){
       event.preventDefault()
@@ -81,11 +89,20 @@
     .then(err=>console.log(err))
   }
 
-  function MostarTareas(){
-    fetch("/")
-    .then(res=>res.json())
-    .then(data=>console.log(data))
-    .then(err=>console.log(err))
+  async function MostarTareas(event){  //uso async y await para el get
+    event.preventDefault()
+    const res =  await fetch("/datos") //para el get necesito otra direccion de api diferente
+    const data = await res.json()
+    document.getElementById("tarjeta").innerHTML = ""
+    for(let i=0;i<data.length;i++){
+      const texto = document.createElement("texto")
+      const descripcion = document.createElement("descripcion")
+      texto.innerHTML = data[i].title
+      descripcion.innerHTML = `${data[i].description} <br>`//muestra el dato y hace un salto de linea
+      document.getElementById("tarjeta").appendChild(texto)
+      document.getElementById("tarjeta").appendChild(descripcion)
+    }
+    
   }
   </script>
 </body>
