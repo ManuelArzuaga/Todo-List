@@ -3,6 +3,7 @@ const app = express()
 const port = 3000
 const bodyparser = require("body-parser")
 const mongoose = require("mongoose")
+const path = require("path");//se usa para mandar un archivo desde el backend con express
 
 
 mongoose.connect("mongodb://localhost:27017/Test2")
@@ -28,7 +29,7 @@ let esquema = mongoose.Schema({ //se establece el esquema
 const model = mongoose.model("Test2",esquema); //se usa para crear, eliminar,actualizar y leer
 
 //post tarea
-app.post("/",(req,res)=>{
+app.post("/post",(req,res)=>{
   res.status = 200
   res.send({status:"recieved"})
   const newesquema = new model({//creo un nuevo esquema
@@ -47,7 +48,7 @@ app.post("/",(req,res)=>{
 
 //eliminar tarea
 
-app.delete("/",(req,res)=>{
+app.delete("/delete",(req,res)=>{
   res.status=200,
   res.send({status:"deleted"})
   model.deleteOne(req.body.title) //elimina por edad
@@ -61,7 +62,7 @@ app.delete("/",(req,res)=>{
 
 //actualizar tarea
 
-app.patch("/",(req,res)=>{
+app.patch("/actualizar",(req,res)=>{
   res.status=200,
   res.send({status:"patched"})
   model.findOneAndUpdate({title:req.body.title},{description:req.body.description}) //actualiza la edad buscando por el nombre, primera parte quien actualizar segunda parte que se actualiza
@@ -80,7 +81,23 @@ app.get("/datos",(req,res)=>{
   // res.send({status:"received"})
   model.find() //lee un elemento
 .then((users) =>{//devuelve un array de objetos
+  // res.send(users)
+  res.sendFile(path.join(__dirname,"/public/Tareas.html")) //envia como respuesta un archivo html
+  
+})
+.catch((err) =>{
+  console.log(err)
+})
+})
+
+app.get("/datos1",(req,res)=>{
+  res.status=200
+  // res.send({status:"received"})
+  model.find() //lee un elemento
+.then((users) =>{//devuelve un array de objetos
   res.send(users)
+  //res.sendFile(path.join(__dirname,"/public/Tareas.html")) //envia como respuesta un archivo html
+  
 })
 .catch((err) =>{
   console.log(err)

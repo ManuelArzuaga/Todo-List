@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href = "../Style.css" rel = "stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
   
   
   <title>Todo-List</title>
@@ -17,32 +18,43 @@
   </div>
   <div id="container-list">
     <form >
-      <div class="post">
-        <input placeholder="ingrese tarea" id = "inputtarea">
-        <input placeholder="ingrese description" id = "inputdescription">
-        <button id="post" onclick="IngresarTarea(event)">Post</button>
+      <div class="mb-3">
+        <label for="exampleFormControlInput1" class="form-label">Tarea</label>
+        <input type="email" class="form-control" id="inputtarea" placeholder="Tarea">
       </div>
-      <div class="eliminar">
-        <input placeholder="ingrese tarea a eliminar" id = "inputeliminar">
-        <button id="post" onclick="DeleteTarea(event)">Delete</button>
+      <div class="mb-3">
+        <label for="exampleFormControlTextarea1" class="form-label">Descripcion</label>
+        <textarea class="form-control" id="inputdescription" rows="3"></textarea>
+        <button type="button" class="btn btn-primary" id="post" onclick="IngresarTarea(event)">POST</button>
       </div>
-      <div class ="actualizar">
-        <input placeholder="ingrese tarea a actualizar" id = "inputActualizar">
-        <input placeholder="ingrese descripcion a actualizar" id = "inputdescriptionActualizar">
-        <button id="post" onclick="ActualizarTarea(event)">Actualizar</button>
-      </div> 
+
+      <div class="input-group flex-nowrap">
+        <input id="inputeliminar" type="text" class="form-control" placeholder="ingrese tarea a eliminar" aria-label="Username" aria-describedby="addon-wrapping">
+        <button type="button" class="btn btn-primary" id="post" onclick="DeleteTarea(event)">DELETE</button>
+      </div>
+      
+      <div class="input-group flex-nowrap">
+        <input id="inputActualizar" type="text" class="form-control" placeholder="ingrese tarea a Actualizar" aria-label="Username" aria-describedby="addon-wrapping">
+      </div>
+      <div class="input-group flex-nowrap">
+        <input id="inputdescriptionActualizar" type="text" class="form-control" placeholder="ingrese descripcion a actualizar" aria-label="Username" aria-describedby="addon-wrapping">
+      </div>
+      <button type="button" class="btn btn-primary" id="post" onclick="ActualizarTarea(event)">ACTUALIZAR</button>
+      
       <div class="mostrar">
         <div id = "tarjeta"></div>
-        <button id="post" onclick="MostarTareas(event)">Mostrar</button>
+        <button type="button" class="btn btn-primary" id="post" onclick="MostarTareas(event)">MOSTRAR</button>
       </div>
     </form>
   </div>
+
+  <a href = "/datos">hola</a>
  
   <!-- <button id="boton">Eliminar Tareas</button> -->
   <script>
     function IngresarTarea(event){
       event.preventDefault()
-      fetch("/",{
+      fetch("/post",{
         method:"POST", //va al app.post
         body:JSON.stringify({
         title:document.getElementById("inputtarea").value,
@@ -59,7 +71,7 @@
   }
   function DeleteTarea(event){
     event.preventDefault()
-    fetch("/",{
+    fetch("/delete",{
       method:"DELETE", //va al app.delete
       body:JSON.stringify({
         title:document.getElementById("inputeliminar").value
@@ -74,7 +86,7 @@
   function ActualizarTarea(event){
     
     
-    fetch("/",{
+    fetch("/actualizar",{
       method:"PATCH", //va al app.patch
       body:JSON.stringify({
         title:document.getElementById("inputActualizar").value,
@@ -105,5 +117,6 @@
     
   }
   </script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 </body>
 </html>
