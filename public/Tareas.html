@@ -4,13 +4,13 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-  
+  <link href="./Style.css" rel = stylesheet>
   <title>Document</title>
 </head>
 <body onload="MostrarTareas(event)">
  
-  <div class="card">
-    <div class="card-body" id="tarjeta">
+  <div class="card" id="tarjeta">
+    <div class="card-body" >
     
     </div>
   </div>
@@ -26,8 +26,8 @@
     for(let i=0;i<data.length;i++){
       const texto = document.createElement("texto")
       const descripcion = document.createElement("descripcion")
-      texto.innerHTML = data[i].title
-      descripcion.innerHTML = `${data[i].description} <br>`//muestra el dato y hace un salto de linea
+      texto.innerHTML = `titulo: ${data[i].title}`
+      descripcion.innerHTML = ` descripcion: ${data[i].description} <br>`//muestra el dato y hace un salto de linea
       document.getElementById("tarjeta").appendChild(texto)
       document.getElementById("tarjeta").appendChild(descripcion)
     }
